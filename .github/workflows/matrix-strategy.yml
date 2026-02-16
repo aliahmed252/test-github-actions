@@ -19,7 +19,7 @@ jobs:
         with:
           node-version: ${{ matrix.node }}
       - name: run linux commands
-        run:
+        run: |
           uname -a # linux command show info about the system
           node -v # version of node js 
           echo "hello from matrix job"    
