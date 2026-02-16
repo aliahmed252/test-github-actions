@@ -1,0 +1,54 @@
+name: Multiple jobs1 
+
+on: push
+
+jobs:
+    build_job1:
+        runs-on: ubuntu-latest
+        steps:
+            - name: checkout repo
+              uses: actions/checkout@v4
+
+            - name: install cowsay program #cowsay is program print a text inside cow shape or any shape
+              run: sudo apt-get install cowsay -y # install cowsay
+             
+            - name: Execute cowsay CMD 
+              run: cowsay -f dragon "Run for cover, iam a Dragon....RAWR" >> dragon.txt 
+            # cowsay: generate a shape dragon this text "Run for cover, iam a Dragon....RAWR" inside the shape 
+            # and put the result into file dragon.txt
+            - name: upload artifact 
+              uses: actions/upload-artifact@v6.0.0 # this action to upload an artifact
+              with:
+                name: dragon-file  # name of the artifact that will be uploaded
+
+                path: dragon.txt #  to find the specific file
+
+    test_job2:
+        runs-on: ubuntu-latest
+        needs: build_job1 # this job willnot start until the job "build_job1" been finished
+        steps:
+            
+            - name: download artifact 
+              uses: actions/download-artifact@v7.0.0 # we use this action to download an artifact
+              with:
+               name: dragon-file # name of the artifact
+              
+            - name: Test File Exists
+              run: grep -i "dragon" dragon.txt #here enter the file dragon.txt and search for word "dragon"
+                #if he doesnot find the word the job  will fail
+    build_job2:
+        runs-on: ubuntu-latest
+        needs: test_job2 # this job willnot start until the job "test_job2" been finished
+
+        steps:
+
+            - name: download artifact 
+              uses: actions/download-artifact@v7.0.0
+              with:
+               name: dragon-file #download the previous artifact
+
+            - name: Read File
+              run: cat dragon.txt # pritn the content in log
+
+            - name: Deploy
+              run: echo Deploying ... .. . 
