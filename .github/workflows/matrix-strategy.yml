@@ -13,7 +13,7 @@ jobs:
         - name: print env info
           run:
             echo "running on os ${{ matrix.os }} "
-            echo "node version: ${{ matrix.node }}"
+            echo "node version ${{ matrix.node }}"
         - name: setup node
           uses: action/setup-node@v4
           with:
