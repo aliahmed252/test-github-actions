@@ -1,0 +1,12 @@
+name: login to docker 
+on:
+  push:
+    branches: ["main"]
+jobs:
+  login to docker manually
+    runs-on: ubuntu-latest
+    steps:
+      - name: checkout repo
+        uses: actions/checkout@v4
+      - name: login 
+        run: echo "${{ secrets.DOCKER_PASSWORD }}" | docker login -u "${{ vars.DOCKER_USERNAME }}" --password-stdin
