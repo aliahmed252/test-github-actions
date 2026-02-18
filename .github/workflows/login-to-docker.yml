@@ -15,7 +15,7 @@ jobs:
     runs-on: ubuntu-22.04
     steps:
       - name: checkout-repo
-        uses: action/checkout@v4
+        uses: actions/checkout@v4
       - name: login by actions
         uses: docker/login-action@v3
         with:
