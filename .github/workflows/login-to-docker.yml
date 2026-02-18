@@ -6,7 +6,7 @@ jobs:
   login-to-docker-manually:
     runs-on: ubuntu-22.04
     steps:
-      - name: checkout repo
+      - name: checkout-repo
         uses: actions/checkout@v4
       - name: login 
         run: echo "${{ secrets.DOCKER_PASSWORD }}" | docker login -u "${{ vars.DOCKER_USERNAME }}" --password-stdin
