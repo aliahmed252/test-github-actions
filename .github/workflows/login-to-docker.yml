@@ -2,6 +2,14 @@ name: login to docker
 on:
   push:
     branches: ["main"]
+  pull_request:
+    types: [opened, synchronize]
+#  opened: When a pull request is created.
+#synchronize: When commits are added to an existing pull request (e.g., after pushing new commits to the branch).
+#reopened: When a closed pull request is reopened.
+#closed: When a pull request is closed (with or without merging).
+#ready_for_review: When a draft pull request is marked as ready for review.
+#converted_to_draft: When a pull request is converted to a draft.
 jobs:
   login-to-docker-manually:
     runs-on: ubuntu-22.04
